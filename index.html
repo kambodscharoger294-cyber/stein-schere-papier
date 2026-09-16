@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stein · Schere · Papier – Handgesten</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <main>
+      <h1>Stein · Schere · Papier 🤖✋</h1>
+      <p class="privacy">
+        🔒 Läuft vollständig lokal in deinem Browser. Kamerabild und Gesten werden
+        <strong>nicht</strong> übertragen oder gespeichert.
+      </p>
+
+      <div class="stage">
+        <div class="video-wrap">
+          <video id="video" autoplay muted playsinline></video>
+          <canvas id="overlay"></canvas>
+          <div id="banner" class="banner hidden"></div>
+          <div id="fpsWarn" class="fps-warn hidden">⚠ Weniger als 15 FPS – Erkennung ggf. langsam</div>
+        </div>
+
+        <aside class="panel">
+          <div class="score">
+            <span><span class="label">Du</span><span id="playerScore">0</span></span>
+            <span> : </span>
+            <span><span class="label">KI</span><span id="cpuScore">0</span></span>
+          </div>
+          <div class="moves">
+            <span id="playerMoveIcon" class="move-icon" title="Deine Hand">·</span>
+            <span class="move-sep">vs</span>
+            <span id="cpuMoveIcon" class="move-icon" title="Hand der KI">·</span>
+          </div>
+          <span id="sets">Sätze — Du 0 : 0 KI</span>
+
+          <button id="startBtn">Runde starten (Leertaste)</button>
+
+          <label>
+            Schwierigkeit
+            <select id="difficulty">
+              <option value="adaptiv">Adaptiv (lernt deine Muster)</option>
+              <option value="zufall">Zufall</option>
+            </select>
+          </label>
+
+          <div class="stats">
+            <div class="row">
+              <span id="pctStein">Stein: 0%</span>
+              <div class="track"><div id="barStein" class="fill"></div></div>
+            </div>
+            <div class="row">
+              <span id="pctPapier">Papier: 0%</span>
+              <div class="track"><div id="barPapier" class="fill"></div></div>
+            </div>
+            <div class="row">
+              <span id="pctSchere">Schere: 0%</span>
+              <div class="track"><div id="barSchere" class="fill"></div></div>
+            </div>
+          </div>
+
+          <p id="hint"></p>
+
+          <p class="keys">
+            Tastatur-Fallback: <kbd>S</kbd> Stein · <kbd>C</kbd> Schere · <kbd>P</kbd> Papier ·
+            <kbd>Leertaste</kbd> Runde starten
+          </p>
+        </aside>
+      </div>
+
+      <div id="loading" class="loading">Kamera & Modell werden geladen …</div>
+
+      <div id="errorOverlay" class="error-overlay hidden">
+        <h2 id="errorTitle"></h2>
+        <p id="errorText"></p>
+      </div>
+    </main>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
