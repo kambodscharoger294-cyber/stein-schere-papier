@@ -46,21 +46,25 @@
           </label>
 
           <div class="stats">
-            <div class="row">
-              <span id="pctStein">Stein: 0%</span>
+            <h2>Deine Würfe (Session)</h2>
+            <div class="stat">
+              <span class="stat-label">✊ Stein</span>
               <div class="track"><div id="barStein" class="fill"></div></div>
+              <span id="countStein" class="stat-count">0 · 0%</span>
             </div>
-            <div class="row">
-              <span id="pctPapier">Papier: 0%</span>
+            <div class="stat">
+              <span class="stat-label">✋ Papier</span>
               <div class="track"><div id="barPapier" class="fill"></div></div>
+              <span id="countPapier" class="stat-count">0 · 0%</span>
             </div>
-            <div class="row">
-              <span id="pctSchere">Schere: 0%</span>
+            <div class="stat">
+              <span class="stat-label">✌️ Schere</span>
               <div class="track"><div id="barSchere" class="fill"></div></div>
+              <span id="countSchere" class="stat-count">0 · 0%</span>
             </div>
           </div>
 
-          <p id="hint"></p>
+          <p id="prediction" class="prediction">Letzte Vorhersage: –</p>
 
           <p class="keys">
             Tastatur-Fallback: <kbd>S</kbd> Stein · <kbd>C</kbd> Schere · <kbd>P</kbd> Papier ·

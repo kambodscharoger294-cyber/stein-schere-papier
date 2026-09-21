@@ -11,7 +11,7 @@ import { Game, type RoundResult } from './game';
 import {
   hideBanner,
   hideLoading,
-  renderHint,
+  renderPrediction,
   renderState,
   renderStats,
   showError,
@@ -85,7 +85,7 @@ game.onResult = (r: RoundResult) => {
   if (r.player !== null && r.cpu !== null) {
     ai.learn(r.player, prevPlayerMove);
     renderStats(ai.throwStats);
-    renderHint(ai.difficulty, ai.lastPrediction);
+    renderPrediction(ai.difficulty, ai.lastPrediction);
     prevPlayerMove = r.player;
   } else {
     // Verworfene Runde: History leicht abschwächen statt brutal leeren
@@ -118,7 +118,7 @@ window.addEventListener('keydown', (e) => {
 
 ui.difficulty.addEventListener('change', () => {
   ai.difficulty = ui.difficulty.value === 'zufall' ? 'zufall' : 'adaptiv';
-  renderHint(ai.difficulty, ai.difficulty === 'adaptiv' ? ai.lastPrediction : null);
+  renderPrediction(ai.difficulty, ai.lastPrediction);
 });
 
 /* ------------------------------------------------------------------ */

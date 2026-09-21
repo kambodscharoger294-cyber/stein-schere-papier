@@ -1,8 +1,8 @@
 /**
- * UI-Bindings: Score, Sätze, Banner, Stats-Bars, Hint, Difficulty, Fehlerzustände.
+ * UI-Bindings: Score, Sätze, Banner, Stats-Bars, Prediction, Difficulty, Fehlerzustände.
  */
 
-import { MOVE_NAMES, type Move } from './ai';
+import { MOVE_NAMES, type Difficulty, type Move } from './ai';
 import type { GameState } from './game';
 
 function el<T extends HTMLElement>(id: string): T {
@@ -23,15 +23,15 @@ export const ui = {
   sets: el<HTMLSpanElement>('sets'),
   startBtn: el<HTMLButtonElement>('startBtn'),
   difficulty: el<HTMLSelectElement>('difficulty'),
-  hint: el<HTMLParagraphElement>('hint'),
+  prediction: el<HTMLParagraphElement>('prediction'),
   loading: el<HTMLDivElement>('loading'),
   errorOverlay: el<HTMLDivElement>('errorOverlay'),
   errorTitle: el<HTMLHeadingElement>('errorTitle'),
   errorText: el<HTMLParagraphElement>('errorText'),
   stats: [
-    { bar: el<HTMLDivElement>('barStein'), label: el<HTMLSpanElement>('pctStein') },
-    { bar: el<HTMLDivElement>('barPapier'), label: el<HTMLSpanElement>('pctPapier') },
-    { bar: el<HTMLDivElement>('barSchere'), label: el<HTMLSpanElement>('pctSchere') },
+    { bar: el<HTMLDivElement>('barStein'), count: el<HTMLSpanElement>('countStein') },
+    { bar: el<HTMLDivElement>('barPapier'), count: el<HTMLSpanElement>('countPapier') },
+    { bar: el<HTMLDivElement>('barSchere'), count: el<HTMLSpanElement>('countSchere') },
   ],
 };
 
@@ -75,18 +75,22 @@ export function hideBanner(): void {
 export function renderStats(stats: readonly [number, number, number]): void {
   const total = stats[0] + stats[1] + stats[2];
   for (let i = 0; i < 3; i++) {
-    const pct = total === 0 ? 0 : Math.round((stats[i] / total) * 100);
+    const n = stats[i];
+    const pct = total === 0 ? 0 : Math.round((n / total) * 100);
     ui.stats[i].bar.style.width = `${pct}%`;
-    ui.stats[i].label.textContent = `${MOVE_NAMES[i]}: ${pct}%`;
+    ui.stats[i].count.textContent = `${n} · ${pct}%`;
   }
 }
 
-export function renderHint(difficulty: string, prediction: Move | null): void {
-  if (difficulty !== 'adaptiv' || prediction === null) {
-    ui.hint.textContent = '';
+export function renderPrediction(difficulty: Difficulty, prediction: Move | null): void {
+  if (difficulty !== 'adaptiv') {
+    ui.prediction.textContent = 'Zufallsmodus – keine Vorhersage';
     return;
   }
-  ui.hint.textContent = `Letzte Vorhersage: ${MOVE_NAMES[prediction]}`;
+  ui.prediction.textContent =
+    prediction === null
+      ? 'Letzte Vorhersage: –'
+      : `Letzte Vorhersage: ${MOVE_ICONS[prediction]} ${MOVE_NAMES[prediction]}`;
 }
 
 export function showError(title: string, text: string): void {

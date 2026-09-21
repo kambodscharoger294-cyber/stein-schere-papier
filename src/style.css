@@ -166,28 +166,57 @@ button:disabled {
   cursor: default;
 }
 
-.stats .row {
-  margin-bottom: 0.5rem;
+.stats {
+  background: var(--panel);
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+}
+
+.stats h2 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--muted);
+  margin: 0 0 0.5rem;
+}
+
+.stats .stat {
+  display: grid;
+  grid-template-columns: 92px 1fr 84px;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0.4rem 0;
+}
+
+.stats .stat-label {
+  font-size: 0.9rem;
 }
 
 .stats .track {
-  height: 10px;
+  height: 12px;
   background: #2a2e3d;
-  border-radius: 5px;
+  border-radius: 6px;
   overflow: hidden;
 }
 
 .stats .fill {
   height: 100%;
   width: 0%;
-  background: var(--accent);
-  transition: width 0.3s;
+  background: linear-gradient(90deg, var(--accent), var(--ok));
+  transition: width 0.25s ease;
 }
 
-#hint {
+.stats .stat-count {
+  font-size: 0.8rem;
+  color: var(--muted);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.prediction {
   color: var(--muted);
   font-size: 0.85rem;
   min-height: 1.2em;
+  margin: 0;
 }
 
 .keys {
